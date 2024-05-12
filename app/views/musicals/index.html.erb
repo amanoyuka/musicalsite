@@ -1,0 +1,65 @@
+<%= stylesheet_link_tag 'index', :media => "all" %>
+
+<div class="musicals-container">
+<h2>MUSICAL作品一覧</h2>
+
+  <%= link_to "ログイン", musicals_path %>
+  <%= link_to "新規登録", new_user_registration_path %>
+  <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
+  <%= link_to "作品の投稿へ", new_musical_path %>
+
+    <%= form_tag({controller:"musicals",action:"index"}, method: :get) do %>
+     <% Tag.all.each do |t| %>
+        <li><%= check_box :tag_ids, t.name %><%= t.name %></li>
+      <% end %>
+      <%= submit_tag '検索' %>
+    <% end %>
+    <%= form_tag({controller:"musicals",action:"index"}, method: :get) do %>
+      <%= text_field_tag :tag %>
+      <%= submit_tag 'タグを追加' %>
+    <% end %>    
+    <% if user_signed_in? %>
+      <%= link_to "マイページへ", user_path(current_user.id) %>
+    <% end %>
+            <% @musicals.each do |t| %>
+              <div class="musical">
+                <div class="main-box">
+                  <%= image_tag t.user.image_url, size: "250x200" if t.user.image? %>
+                  <%= link_to t.user.name, user_path(t.user.id) %>
+                  <%= t.user.email %>
+                  <div class="left-container"><%= t.name %></div>
+                  <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= find_youtube_url(t.youtube_url) %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  <%= t.point %>
+                  <% if user_signed_in? %>
+                      <% if current_user.already_liked?(t) %>
+                          <%= link_to musical_like_path(id: t.id, musical_id: t.id), method: :delete do %>
+                              <p>いいねを取り消す</p><i class="far fa-heart"></i></i></i><%= t.likes.count %>
+                          <% end %>
+                      <% else %>
+                          <%= link_to musical_likes_path(id: t.id, musical_id: t.id), method: :post do %>
+                              <p>いいね</p><i class="far fa-heart"></i><%= t.likes.count %>
+                          <% end %>
+                      <% end %>
+                  <% else %>
+                      <p>いいねの数 = </p><i class="far fa-heart"><%= t.likes.count %>
+                  <% end %>
+                  <div class="right-container">
+                  <%= link_to "詳細へ", musical_path(t.id) %> 
+                  <% if user_signed_in? && current_user.id == t.user_id %>
+                    <%= link_to "編集する", edit_musical_path(t.id) %>
+                    <%= button_to "削除する", musical_path(t.id), method: :delete %>
+                  <% end %> 
+                  </div>
+                </div>
+               </div>
+            <% end %>
+</div>
+
+ 
+
+          
+
+      
+     
+
+          

@@ -1,0 +1,47 @@
+
+<h1>コメント一覧</h1>
+<% @comments.each do |t| %>  
+
+  <div style = 'margin:20px; border:2px double black; width:500px;padding-left:20px;'>
+    <h2> 授業名：<%= t.name %> </h2>
+    <h4>投稿者:<%= t.username%></h4>
+
+    <div>
+    <h2>音楽の満足度：
+    <span class="star-rating">
+    <span class="star-rating-front" style="width: <%= getPercent(t.songlevel) %>%;">★★★★★</span>
+    <span class="star-rating-back">★★★★★</span>
+     </span>
+     </h2>
+     </div>
+       
+     <div>
+     <h2>ストーリーの評価：
+     <span class="star-rating">
+       <span class="star-rating-front" style="width: <%= getPercent(t.storylevel) %>%;">★★★★★</span>
+       <span class="star-rating-back">★★★★★</span>
+     </span>
+     </h2>
+     </div>
+
+     <div>
+     <h2>私のお気に入り度：
+     <span class="heart-rating">
+       <span class="heart-rating-front" style="width: <%= getPercent(t.likelevel) %>%;">♥♥♥♥♥♥</span>
+       <span class="heart-rating-back">♥♥♥♥♥♥</span>
+     </span>
+     </h2>
+     </div>
+   </div>
+   <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= find_youtube_url(t.youtube_url) %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<% end %>
+    
+  <%= link_to 'コメントをする', comments_new_path%>
+ 
+  
+
+
+
+
+
+

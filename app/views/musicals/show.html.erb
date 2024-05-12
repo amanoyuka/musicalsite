@@ -1,0 +1,59 @@
+<h1>Musical作品・感想紹介サイト</h1>
+<h3>作品詳細</h3>
+
+<div class="musical">
+  <p><%= @musical.name %></p>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= find_youtube_url(@musical.youtube_url) %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <p><%= @musical.created_at %></p>
+    <% if user_signed_in? %>
+      <% if current_user.already_liked?(@musical) %>
+        <%= link_to musical_like_path(@musical), method: :delete do %>
+          <p>いいねを取り消す</p><i class="fas fa-heart"><%= @musical.likes.count %>
+        <% end %>
+      <% else %>
+        <%= link_to musical_likes_path(@musical), method: :post do %>
+          <p>いいね</p><i class="far fa-heart"></i><%= @musical.likes.count %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <p>いいねの数 = </p><i class="far fa-heart"></i><%= @musical.likes.count %>
+    <% end %>
+  <%= link_to "編集する", edit_musical_path(@musical.id) %>
+</div>
+
+<h2>いいねしたユーザー</h2>
+<% @musical.liked_users.each do |user| %>
+  <li><%= user.email %></li>
+<% end %>
+
+<div class="comment-wrapper">
+  <p>コメント一覧</p>
+  <% @comments.each do |c| %>
+    <div>
+      <%= c.user.email unless c.user.blank? %>
+      <br>
+      <%= c.content %>
+    </div>
+      <br>
+  <% end %>
+
+  <% if user_signed_in? %>
+    <%= form_with(model: [@musical, @comment], local: true) do |f| %>
+      <%= f.text_area :content %>
+      <%= button_tag type: "submit" do %>
+        <i class="far fa-comments"></i> コメントする
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+
+<% @musical.tags.each do |tag| %>
+  <span><%= tag.name %></span>
+<% end %>
+
+
+<%= link_to "一覧ページに戻る", musicals_path %>  
+
+ 
+
+ 
