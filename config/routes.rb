@@ -7,11 +7,7 @@ Rails.application.routes.draw do
   resources :musicals do
     resources :likes, only: [:create, :destroy]
     resources :comments
-  
-
-  end
-  
+  end 
   root 'musicals#index' 
-
 
 end

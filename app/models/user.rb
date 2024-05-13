@@ -10,7 +10,6 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   validates :name, presence: true
   validates :profile, length: { maximum: 200 }
-  mount_uploader :image, ImageUploader
   
   def already_liked?(musical)
     self.likes.exists?(musical_id: musical.id)
