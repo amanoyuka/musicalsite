@@ -1,4 +1,5 @@
 <h1>users#show</h1>
+<%= image_tag @user.image_url, size: "250x200" if @user.image? %>
 <p>名前 : <%= @user.name %></p>
 <p>メールアドレス : <%= @user.email %></p>
 <p>プロフィール : <%= @user.profile %></p>
@@ -16,9 +17,9 @@
 <h2>ユーザーがいいねした投稿一覧</h2>
 <% @user.liked_musicals.each do |t| %>
   <%= t.user.name %>
-  <%= t.body %>
+  <%= t.name %>
 <% end %>
 
-<%= image_tag @user.image_url, size: "250x200" if @user.image? %>
+
 
 <%= link_to "一覧ページに戻る", musicals_path %>

@@ -17,6 +17,7 @@
  * {
     padding: 0;
     margin: 0;
+    color: whitesmoke;
   }
   body {
     min-height: 100vh;
@@ -24,12 +25,16 @@
     font-family: "TA-桜", "Noto Sans",'メイリオ', Meiryo,'ヒラギノ角ゴシック','Hiragino Sans','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','Meiryo UI','ヒラギノ角ゴ StdN','Hiragino Kaku Gothic StdN','ヒラギノ明朝 ProN','Hiragino Mincho ProN','AcademyEngravedLetPlain','klee',YuGothic,'Yu Gothic','Yu Gothic UI','ＭＳ ゴシック',sans-serif;
     display: flex;
     flex-direction: column;
+    background-color: #000; 
+    
+    background-size: cover;
   }
   header {
     margin: 0 auto;
-    margin: 30px;
-    background-color: #640F0C;
-    height: 80px;
+    margin: 0px;
+    background-image: url("cinema.jpg");  
+    
+    height: 150px;
     font-weight: normal;
     display: flex;
     justify-content: space-between;

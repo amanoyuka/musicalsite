@@ -5,13 +5,16 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :musicals, dependent: :destroy
-  validates :name, presence: true
-  validates :profile, length: { maximum: 200 }
   has_many :likes, dependent: :destroy
   has_many :liked_musicals, through: :likes, source: :musical
+  has_many :comments, dependent: :destroy
+  validates :name, presence: true
+  validates :profile, length: { maximum: 200 }
+  mount_uploader :image, ImageUploader
+  
   def already_liked?(musical)
     self.likes.exists?(musical_id: musical.id)
   end
-  has_many :comments, dependent: :destroy
-  mount_uploader :image, ImageUploader
+  
+  
 end

@@ -1,7 +1,7 @@
 <h1>Musical作品 紹介＆投稿サイト</h1>
 <h3>感想を投稿しよう！</h3>
 
-<%= form_with model: @comment , url: new_musical_comment_path ,local: true do |f| %>
+<%= form_with model: [@musical, @comment], url: new_musical_comment_path ,local: true do |f| %>
 
   <div class="comment_form">
     <h3>授業投稿フォーム</h3>
@@ -16,6 +16,32 @@
           ["吹き替え版", "吹き替え版"], 
           ["両方見た", "両方見た"]], include_blank: "選択して下さい" %>
     </div>
+
+    <div class="comment_form">
+      <div class="field">
+        <%= f.label :"どんなところが良かった？" %>
+        <%= f.text_area :content %>
+      </div>
+    </div>
+
+    <h5>個人のお気に入り度</h5>
+    <div class="post_form">
+      <%= f.radio_button :level,  5 ,id: 'heart6'%>
+      <label for="heart6"><span class="text">大好き！</span>♥</label>
+
+      <%= f.radio_button :level,  4 ,id: 'heart7'%>
+      <label for="heart7"><span class="text">好き</span>♥</label>
+
+      <%= f.radio_button :level, 3 ,id: 'heart8'%>
+      <label for="heart8"><span class="text">普通</span>♥</label>
+
+      <%= f.radio_button :level , 2 ,id: 'heart9'%>
+      <label for="heart9"><span class="text">あんまり…</span>♥</label>
+
+      <%= f.radio_button :level , 1 ,id: 'heart10'%>
+      <label for="heart10"><span class="text">苦手</span>♥</label>
+    </div>
+
 
     <h5>音楽の満足度</h5>
     <div class="post_form">
@@ -53,45 +79,16 @@
       <label for="star10"><span class="text">簡単</span>★</label>
     </div>
 
-    <h5>個人のお気に入り度</h5>
-    <div class="post_form">
-      <%= f.radio_button :level,  5 ,id: 'heart6'%>
-      <label for="heart6"><span class="text">大好き！</span>♥</label>
-
-      <%= f.radio_button :level,  4 ,id: 'heart7'%>
-      <label for="heart7"><span class="text">好き</span>♥</label>
-
-      <%= f.radio_button :level, 3 ,id: 'heart8'%>
-      <label for="heart8"><span class="text">普通</span>♥</label>
-
-      <%= f.radio_button :level , 2 ,id: 'heart9'%>
-      <label for="heart9"><span class="text">あんまり…</span>♥</label>
-
-      <%= f.radio_button :level , 1 ,id: 'heart10'%>
-      <label for="heart10"><span class="text">苦手</span>♥</label>
-    </div>
-
-    <div class="comment_form">
-      <div class="field">
-        <%= f.label :"どんなところが良かった？" %>
-        <%= f.text_area :content %>
-      </div>
-    </div>
 
     <div class='field'>
       <%= f.label :"この作品の魅力を伝えるyoutubeのリンクを載せてみませんか？" %>
       <%= f.text_field :youtube_url, :size => 140 %>
     </div>
-    
-    <%= form_with(model: [@musical, @comment], local: true) do |f| %>
-        <%= f.text_area :content %>
-        <%= button_tag type: "submit" do %>
-          <i class="far fa-comments"></i> コメントする
-        <% end %>
-    <% end %>
 
   </div>
   <%= f.submit '送信'%>
 <% end %>
+
+
 
 

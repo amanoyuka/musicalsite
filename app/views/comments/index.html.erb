@@ -1,6 +1,6 @@
 
 <h1>コメント一覧</h1>
-<% @comments.each do |t| %>  
+<% [@comments, @musicals].each do |t| %>  
 
   <div style = 'margin:20px; border:2px double black; width:500px;padding-left:20px;'>
     <h2> 授業名：<%= t.name %> </h2>
@@ -36,7 +36,7 @@
    <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= find_youtube_url(t.youtube_url) %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <% end %>
     
-  <%= link_to 'コメントをする', comments_new_path%>
+ 
  
   
 
