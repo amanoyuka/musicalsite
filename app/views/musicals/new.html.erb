@@ -1,44 +1,49 @@
 <%= stylesheet_link_tag 'new', :media => "all" %>
 
 
+  
 <div class="post-container">
-    <p class="title">作品の投稿をしよう！</p>
+      <p class="title">作品の投稿をしよう！</p>
+  
 
+  
+  <%= form_for(@musical) do |f| %>
+      <div class='form-group'>
+        <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+              <div class='form-check'>
+                  <%= tag.label class: 'form-check-label' do %>
+                      <%= tag.check_box class: 'form-check-input' %>
+                      <%= tag.text %>
+                  <% end %>
+              </div>
+        <% end %>
+      </div>
+      <br>
 
-<%= form_for(@musical) do |f| %>
-  <div class='form-group'>
-      <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
-            <div class='form-check'>
-                <%= tag.label class: 'form-check-label' do %>
-                    <%= tag.check_box class: 'form-check-input' %>
-                    <%= tag.text %>
-                <% end %>
-            </div>
-      <% end %>
-    </div>
-    <br>
+      <div class="field">
+        <%= f.label :"作品名" %>
+        <%= f.text_field :name, :size => 30 %>
+      </div>
+      <br>
 
-    <div class="field">
-      <%= f.label :"作品名" %>
-      <%= f.text_field :name, :size => 30 %>
-    </div>
-    <br>
-
-    <div class="field">
-      <%= f.label :"作品の見どころ"  %>
-      <%= f.text_area :point, :size => "30x2" %>
-    </div>
-    <br>
+      <div class="field">
+        <%= f.label :"作品の魅力は？（ネタバレなしで！）"  %>
+        <%= f.text_area :point, :size => "30x2" %>
+      </div>
+      <br>
+      
+      
+      <%= f.label :youtube_url %>
+      <%= f.text_field :youtube_url, :size => 140 %>
+      
+      <br>
     
-    <%= f.label :youtube_url %>
-    <%= f.text_field :youtube_url, :size => 140 %>
-    <br>
-    <%= f.submit "作品に関する投稿をする" %>
+
+
+    <%= f.submit "投稿" %>
     <br>
     <%= link_to "一覧ページに戻る", :controller => "musicals", :action => "index" %>
-
-
+  <% end %>
 </div>
-<% end %>
 
 

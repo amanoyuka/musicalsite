@@ -2,7 +2,10 @@ class MusicalsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
       def index
       @musicals = Musical.all   
-
+      
+      if params[:tag]
+        Tag.create(name: params[:tag])
+      end
       if params[:tag_ids]
         @musicals = []
         params[:tag_ids].each do |key, value|
@@ -11,9 +14,6 @@ class MusicalsController < ApplicationController
             @musicals = @musicals.empty? ? tag_musicals : @musicals & tag_musicals
           end
         end
-      end
-      if params[:tag]
-        Tag.create(name: params[:tag])
       end
       end
 

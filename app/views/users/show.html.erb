@@ -1,4 +1,4 @@
-<h1>users#show</h1>
+<h2>ユーザー情報</h2>
 <%= image_tag @user.image_url, size: "250x200" if @user.image? %>
 <p>名前 : <%= @user.name %></p>
 <p>メールアドレス : <%= @user.email %></p>
@@ -8,13 +8,13 @@
   <%= link_to "編集する", edit_user_registration_path %>
 <% end %>
 
-<h2>ユーザーの投稿一覧</h2>
+<h3>ユーザーの投稿一覧</h3>
 <% @user.musicals.each do |t| %>
   <%= t.user.name %>
   <%= t.name %>
 <% end %>
 
-<h2>ユーザーがいいねした投稿一覧</h2>
+<h3>ユーザーがいいねした投稿一覧</h3>
 <% @user.liked_musicals.each do |t| %>
   <%= t.user.name %>
   <%= t.name %>

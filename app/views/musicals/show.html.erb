@@ -1,15 +1,14 @@
 
 <h3>作品詳細</h3>
-<%= link_to "一覧ページに戻る", musicals_path %>
 
 <div class="musical">
   <p><%= @musical.name %></p>
   <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= find_youtube_url(@musical.youtube_url) %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  #<p><%= @musical.created_at %></p>
     <% if user_signed_in? %>
       <% if current_user.already_liked?(@musical) %>
         <%= link_to musical_like_path(@musical), method: :delete do %>
-          <i class="fas fa-heart fa-1x" style="color:red;"></i><%= @musical.likes.count %>
+          <i class="fas fa-heart fa-1x" style="color:red;">
+          <%= @musical.likes.count %></i>
         <% end %>
       <% else %>
         <%= link_to musical_likes_path(@musical), method: :post do %>
@@ -19,7 +18,15 @@
     <% else %>
      <i class="fas fa-heart fa-1x" style="color:red;"><%= @musical.likes.count %>
     <% end %>
-  <%= link_to "編集する", edit_musical_path(@musical.id) %>
+  <%= link_to edit_musical_path(@musical.id) do %>
+    <i class="fa-regular fa-pen-to-square"></i><p>編集</p>
+  <% end %>
+
+  <%= link_to "一覧ページに戻る", musicals_path %>
+
+  <% @musical.tags.each do |tag| %>
+    <span><%= tag.name %></span>
+  <% end %>
   
 
 
@@ -50,11 +57,7 @@
     <% end %>
   </div>
 
-<% @musical.tags.each do |tag| %>
-  <span><%= tag.name %></span>
-<% end %>
-
-
+  
 </div>
  
 
