@@ -17,7 +17,10 @@
  * {
     padding: 0;
     margin: 0;
+
+    
   }
+
   body {
     min-height: 100vh;
     position: relative; 
@@ -27,24 +30,33 @@
     background-color: #000; 
     color: whitesmoke;
     background-size: cover;
+    margin: 0px;
+    width: 100%;
   }
   header {
     margin: 0 auto;
     margin: 0px;
-    background-image: url("cinema.jpg");  
-    
-    height: 150px;
+    background-image: url("cinema.jpg");     
+    height: 100px;
     font-weight: normal;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
   }
   header a {
-    color: whitesmoke; 
+    color: #c4bdbd;
     text-decoration: none; 
   }
+ 
+  a:hover {
+    color: rgb(158, 151, 152);
+  }
+  
   header h1 {
-    color: whitesmoke;
+    font-size: 70px;
+    font-family: serif;
+    color: #c4bdbd;
     margin-left: 20px;
   }
   header-list {
@@ -61,7 +73,7 @@
 
   footer {
     color: whitesmoke;
-    height: 30px;
+    height: 10px;
     background-color: #000;
     bottom: 0;
     width: 100%;
@@ -69,4 +81,6 @@
     align-items: center;
     position: fixed;
     justify-content: flex-end;
+    font-family: serif;
+    font-size: 5px;
   }

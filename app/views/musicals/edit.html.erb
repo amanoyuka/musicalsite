@@ -1,32 +1,42 @@
-<h1>Musical作品・感想紹介サイト</h1>
-<h3>作品の編集ページ</h3>
+<%= stylesheet_link_tag 'edit', :media => "all" %>
 
+<h3>投稿作品の編集</h3>
+<div class="post-container">
 <%= form_for @musical do |f| %>
+
+    <div class='form-group'>
+      <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+            <div class='form-check'>
+                <%= tag.label class: 'form-check-label' do %>
+                    <%= tag.check_box class: 'form-check-input' %>
+                    <%= tag.text %>
+                <% end %>
+            </div>
+      <% end %>
+    </div>
+    <br>
+
 
   <div class="field">
   <%= f.label :"作品名" %>
   <%= f.text_field :name, :size => 30 %>
   </div>
 
+  <div class='field'>
+      <%= f.label :"おすすめ劇中歌or予告編のyoutube_url" %>
+        <%= f.text_field :youtube_url, :size => 140 %>
+  <div>
+
   <div class="field">
-    <%= f.label :"みんなに見どころを伝えよう！"  %>
+    <%= f.label :"作品の魅力は？（ネタバレなしで！）"  %>
     <%= f.text_area :point, :size => "30x2" %>
   </div>
 
 
-  <div class='field'>
-      <%= f.label :youtube_url %>
-        <%= f.text_field :youtube_url, :size => 140 %>
-  <div>
-
-  <h5>ジャンル選択:</h5>
-  <div class='form-group'>
-    <%= f.collection_select :tag_ids, Tag.all, :id, :name, include_blank: "ジャンルを選択してください"  %>
-  </div>
-
   <%= f.submit "編集する" %>
   
 <% end %>
+</div>
 <%= link_to "一覧ページに戻る", :controller => "musicals", :action => "index" %>
 
 

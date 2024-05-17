@@ -1,4 +1,4 @@
-<%= stylesheet_link_tag 'new', :media => "all" %>
+<%= stylesheet_link_tag 'edit', :media => "all" %>
 
 
   
@@ -24,26 +24,30 @@
         <%= f.label :"作品名" %>
         <%= f.text_field :name, :size => 30 %>
       </div>
-      <br>
+      
+      <div class="field">
+      <%= f.label :"おすすめ劇中歌or予告編のyoutube_url" %>
+      <%= f.text_field :youtube_url, :size => 120 %>
+      </div>
+      
 
       <div class="field">
         <%= f.label :"作品の魅力は？（ネタバレなしで！）"  %>
         <%= f.text_area :point, :size => "30x2" %>
       </div>
-      <br>
       
       
-      <%= f.label :youtube_url %>
-      <%= f.text_field :youtube_url, :size => 140 %>
       
-      <br>
+      
     
 
 
     <%= f.submit "投稿" %>
-    <br>
-    <%= link_to "一覧ページに戻る", :controller => "musicals", :action => "index" %>
+  
   <% end %>
 </div>
+
+<%= link_to "一覧ページに戻る", :controller => "musicals", :action => "index" %>
+    
 
 

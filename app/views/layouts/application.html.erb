@@ -11,12 +11,9 @@
   </head>
   <body>
     <header>
-      <h1>Musicalin J</h1>
+      <h1>Musical Movie</h1>
       <div class="header-list">
         <ul>
-          
-          
-          
           <% if user_signed_in? %>
             <li><%= link_to "マイページへ", user_path(current_user.id) %></li>
             <li><%= button_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
@@ -34,7 +31,7 @@
       <%= yield %>
     </main>
     <footer>
-    <p>Copyright © Musicaling J All Rights Reserved.</p>
-  </footer
+    <p>Copyright © Musical Movie All Rights Reserved.</p>
+  </footer>
   </body>
 </html>

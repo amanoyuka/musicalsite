@@ -1,25 +1,34 @@
+<%= stylesheet_link_tag 'registrations-new', :media => "all" %>
+
+<div class="new">
+<section id="rfirst-block">
+
 <h2>ユーザー情報</h2>
-<%= image_tag @user.image_url, size: "250x200" if @user.image? %>
+
 <p>名前 : <%= @user.name %></p>
 <p>メールアドレス : <%= @user.email %></p>
 <p>プロフィール : <%= @user.profile %></p>
-
+<br>
 <% if current_user.id == @user.id %>
   <%= link_to "編集する", edit_user_registration_path %>
 <% end %>
 
+<br>
 <h3>ユーザーの投稿一覧</h3>
 <% @user.musicals.each do |t| %>
-  <%= t.user.name %>
   <%= t.name %>
+  <br>
 <% end %>
 
 <h3>ユーザーがいいねした投稿一覧</h3>
 <% @user.liked_musicals.each do |t| %>
-  <%= t.user.name %>
   <%= t.name %>
+  <br>
 <% end %>
 
-
+<br>
 
 <%= link_to "一覧ページに戻る", musicals_path %>
+</section>
+
+</div>

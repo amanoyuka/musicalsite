@@ -1,56 +1,98 @@
-<%= stylesheet_link_tag 'index', :media => "all" %>
-<div class="musicals-container">
-<h2>MUSICAL作品一覧</h2>
+<!DOCTYPE html> 
+<html lang="ja">
 
-    <%= form_tag({controller:"musicals",action:"index"}, method: :get) do %>
-     <% Tag.all.each do |t| %>
-        <li><%= check_box :tag_ids, t.name %><%= t.name %></li>
+<%= stylesheet_link_tag 'index', :media => "all" %>
+
+<body>
+
+<div class="main-container">
+ 
+ <section id="first-block">
+ <div class="genre-title">
+ <h3>オススメ作品のジャンル選択</h3>
+ <div>
+ </section>
+
+ <section id="second-block">
+  <div class="tags">
+   <ul>
+   
+    <%= link_to "全てのジャンル", musicals_path %>
+      <%= form_tag({controller:"musicals",action:"index"}, method: :get) do %>
+        <div class ="tags-title">
+        <% Tag.all.each do |t| %>
+           <li><%= check_box :tag_ids, t.name %><%= t.name %></li>
+        <% end %>
+        </div>
+    
+    </ul>
+        <%= submit_tag '検索' %>
       <% end %>
-      <%= submit_tag '検索' %>
-    <% end %>
-    <%= form_tag({controller:"musicals",action:"index"}, method: :get) do %>
-      <%= text_field_tag :tag %>
-      <%= submit_tag 'タグを追加' %>
-    <% end %>    
-            <% @musicals.each do |t| %>
-              <% t.tags.each do |tag| %>
-                <%= tag.name %>
+  
+      <%= form_tag({controller:"musicals",action:"index"}, method: :get) do %>
+        <%= text_field_tag :tag %>
+        <%= submit_tag 'タグを追加' %>
+      <% end %> 
+  </div>   
+</section>
+  
+  <section id="third-block">
+  <h2>MUSICAL作品一覧</h2>
+  </section>
+
+  <section id="forth-block">
+  <div class="contents">
+    <% @musicals.each do |t| %>
+      <div class="contents-item">
+        <iframe width="420" height="236.25" src="https://www.youtube.com/embed/<%= find_youtube_url(t.youtube_url) %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="left-container"><%= t.name %>
+          <% if user_signed_in? %>
+            <% if current_user.already_liked?(t) %>
+              <%= link_to musical_like_path(id: t.id, musical_id: t.id), method: :delete do %>
+                <i class="fas fa-heart fa-1x" style="color:red;"></i>
+                <%= t.likes.count %>
               <% end %>
-              <div class="musical">
-                <div class="main-box">
-                  <iframe width="420" height="236" src="https://www.youtube.com/embed/<%= find_youtube_url(t.youtube_url) %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                  <div class="left-container"><%= t.name %>
-                  <% if user_signed_in? %>
-                      <% if current_user.already_liked?(t) %>
-                          <%= link_to musical_like_path(id: t.id, musical_id: t.id), method: :delete do %>
-                              <i class="fas fa-heart fa-1x" style="color:red;">
-                              <%= t.likes.count %></i>
-                          <% end %>
-                      <% else %>
-                          <%= link_to musical_likes_path(id: t.id, musical_id: t.id), method: :post do %>
-                              <i class="fas fa-heart fa-1x" style="color:gray;">
-                              <%= t.likes.count %></i>
-                          <% end %>
-                      <% end %>
-                  <% else %>
-                      <i class="fas fa-heart fa-1x" style="color:red;">
-                      <%= t.likes.count %></i>
-                  <% end %>
-                  </div>
-                  <div class="right-container">
-                  <%= link_to "詳細へ", musical_path(t.id) %> 
-                  <% if user_signed_in? && current_user.id == t.user_id %>
-                    <%= link_to "編集", edit_musical_path(t.id) %>
-                      <i class="fa-regular fa-pen-to-square"></i>
-                    <%= link_to  musical_path(t.id), method: :delete do %>
-                      <i class="fa-solid fa-trash-can"></i>
-                    <% end %>
-                  <% end %> 
-                  </div>
-                </div>
-              </div>
+            <% else %>
+              <%= link_to musical_likes_path(id: t.id, musical_id: t.id), method: :post do %>
+                <i class="fas fa-heart fa-1x" style="color:gray;"></i>
+                <%= t.likes.count %>
+              <% end %>
             <% end %>
-</div>
+          <% else %>
+            <i class="fas fa-heart fa-1x" style="color:red;"></i>
+            <%= t.likes.count %>
+          <% end %>
+        </div>
+        <div class="right-container">
+          <%= link_to "詳細へ", musical_path(t.id) %>
+          <div class="edit">
+            <% if user_signed_in? && current_user.id == t.user_id %>
+              <%= link_to edit_musical_path(t.id), method: :get do %>
+                <i class="fa-regular fa-pen-to-square"></i>
+              <% end %>
+            </div>
+            <div class="delete">
+              <%= link_to musical_path(t.id), method: :delete do %>
+                <i class="fa-solid fa-trash-can"></i>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="tag">
+            <% t.tags.each do |tag| %>
+              <%= tag.name %>
+              <i class="fa-solid fa-tags"></i>
+            <% end %> 
+          </div>  
+        </div>
+      </div>                
+    <% end %>
+  </div>
+</section>
+</div>   
+    
+</body>  
+</html>
+
 
  
 
